@@ -9,13 +9,17 @@ namespace App.Scripts.Libs.Infrastructure.UI.Panel.Manager
     {
         private readonly Transform _canvasTransform;
         
-        private readonly List<IFactory<PanelController>> _factories;
+        private List<IFactory<PanelController>> _factories;
 
         private readonly List<PanelController> _panels = new();
 
-        public PanelManager(Transform canvasTransform, List<IFactory<PanelController>> factories)
+        public PanelManager(Transform canvasTransform)
         {
             _canvasTransform = canvasTransform;
+        }
+
+        public void SetPanelPool(List<IFactory<PanelController>> factories)
+        {
             _factories = factories;
         }
         
