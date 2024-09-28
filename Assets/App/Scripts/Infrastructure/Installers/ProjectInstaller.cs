@@ -1,5 +1,5 @@
 ﻿using App.Scripts.Libs.Infrastructure.Core.Service.Container;
-using App.Scripts.Libs.Infrastructure.Core.Service.Installer;
+using App.Scripts.Libs.Infrastructure.Core.Service.Installer.MonoInstaller;
 using App.Scripts.Libs.Infrastructure.UI.Panel.Manager;
 using UnityEngine;
 

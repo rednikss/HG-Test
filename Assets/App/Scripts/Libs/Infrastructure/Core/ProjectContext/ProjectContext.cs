@@ -29,11 +29,10 @@ namespace App.Scripts.Libs.Infrastructure.Core.ProjectContext
             }
         }
 
-        public void Init()
+        private void Init()
         {
             _container = new ServiceContainer();
-            
-            contextInstaller.InstallBindings(_container);
+            contextInstaller.Init();
         }
 
         public ServiceContainer GetContainer() => _container;

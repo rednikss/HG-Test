@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace App.Scripts.Game.InputProvider
+namespace App.Scripts.Game.InputProvider.Default
 {
-    public class DefaultPlayerInputProvider : IPlayerInputProvider
+    public class DefaultInputProvider : IInputProvider
     {
         public Vector3 GetMovementDirection()
         {
-            return new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            return new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         }
 
         public Vector2 GetRotationDirection()

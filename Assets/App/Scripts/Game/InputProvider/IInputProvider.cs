@@ -2,7 +2,7 @@
 
 namespace App.Scripts.Game.InputProvider
 {
-    public interface IPlayerInputProvider
+    public interface IInputProvider
     {
         public Vector3 GetMovementDirection();
 
