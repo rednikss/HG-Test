@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d29111642c1541e2a22b82b1912f3863, type: 3}
-  m_Name: Player Movement Config
+  m_Script: {fileID: 11500000, guid: 638e87ed69ae44e58f501e606a649a16, type: 3}
+  m_Name: Enemy Entity Config
   m_EditorClassIdentifier: 
-  Settings:
-    Speed: 5
-    Sensitivity: 7
+  Health:
+    StartHealth: 2
+  Movement:
+    Speed: 0
+    Sensitivity: 1
