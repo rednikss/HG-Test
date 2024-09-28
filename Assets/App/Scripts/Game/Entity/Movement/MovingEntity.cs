@@ -1,5 +1,5 @@
-﻿using App.Scripts.Game.Entity.Movement.Config;
-using App.Scripts.Game.InputProvider;
+﻿using App.Scripts.Game.Entity.InputProvider;
+using App.Scripts.Game.Entity.Movement.Config;
 using UnityEngine;
 
 namespace App.Scripts.Game.Entity.Movement

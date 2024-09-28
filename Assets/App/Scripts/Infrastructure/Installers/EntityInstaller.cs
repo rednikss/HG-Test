@@ -1,11 +1,12 @@
 ﻿using App.Scripts.Game.Entity.Base;
-using App.Scripts.Game.Entity.Config;
+using App.Scripts.Game.Entity.Base.Config;
+using App.Scripts.Game.Entity.InputProvider.Default;
+using App.Scripts.Game.Entity.InputProvider.FollowTarget;
 using App.Scripts.Game.Entity.Movement;
 using App.Scripts.Game.Entity.Movement.Config;
-using App.Scripts.Game.InputProvider.Default;
-using App.Scripts.Game.InputProvider.FollowTarget;
 using App.Scripts.Libs.Infrastructure.Core.Service.Container;
 using App.Scripts.Libs.Infrastructure.Core.Service.Installer.MonoInstaller;
+using App.Scripts.Libs.Utilities.Timer;
 using UnityEngine;
 
 namespace App.Scripts.Infrastructure.Installers
@@ -23,10 +24,13 @@ namespace App.Scripts.Infrastructure.Installers
             _playerEntity.Construct(_playerConfig, 
                 new DefaultInputProvider());
 
+            var timer = container.GetService<Timer>();
+            
             foreach (var entity in _enemyEntities)
             {
                 entity.Construct(_enemyConfig, 
-                    new FollowTargetInputProvider(_playerEntity.transform, entity.transform));
+                    new FollowTargetInputProvider(_playerEntity.transform, entity.transform,
+                        timer));
             }
         }
     }

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using App.Scripts.Game.Entity.Config;
+using App.Scripts.Game.Entity.Base.Config;
 using App.Scripts.Game.Entity.Health;
+using App.Scripts.Game.Entity.InputProvider;
 using App.Scripts.Game.Entity.Movement;
-using App.Scripts.Game.InputProvider;
 using UnityEngine;
 
 namespace App.Scripts.Game.Entity.Base
