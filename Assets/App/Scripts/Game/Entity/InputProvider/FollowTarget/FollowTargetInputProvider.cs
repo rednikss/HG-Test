@@ -35,7 +35,7 @@ namespace App.Scripts.Game.Entity.InputProvider.FollowTarget
             return new Vector2(angle, 0);
         }
 
-        public bool IsShooting()
+        public bool IsAttacking()
         {
             var newTime = _timer.GetCurrentTime();
 

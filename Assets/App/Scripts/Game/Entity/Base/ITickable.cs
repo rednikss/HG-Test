@@ -1,4 +1,4 @@
-﻿namespace App.Scripts.Game.Entity.Movement
+﻿namespace App.Scripts.Game.Entity.Base
 {
     public interface ITickable
     {

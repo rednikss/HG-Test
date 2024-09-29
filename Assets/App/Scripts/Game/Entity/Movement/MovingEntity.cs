@@ -1,4 +1,5 @@
-﻿using App.Scripts.Game.Entity.InputProvider;
+﻿using App.Scripts.Game.Entity.Base;
+using App.Scripts.Game.Entity.InputProvider;
 using App.Scripts.Game.Entity.Movement.Config;
 using UnityEngine;
 

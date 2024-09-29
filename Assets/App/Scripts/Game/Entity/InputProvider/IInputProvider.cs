@@ -8,6 +8,6 @@ namespace App.Scripts.Game.Entity.InputProvider
 
         public Vector2 GetRotationDirection();
 
-        public bool IsShooting();
+        public bool IsAttacking();
     }
 }

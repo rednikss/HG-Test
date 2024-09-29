@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using App.Scripts.Libs.Infrastructure.Core.EntryPoint.MonoInitializable;
 using UnityEngine;
 
 namespace App.Scripts.Libs.Patterns.ObjectPool
 {
-    public abstract class MonoBehaviourPool<TObject> : MonoBehaviour, IObjectPool<TObject> where TObject : MonoBehaviour
+    public abstract class MonoBehaviourPool<TObject> : MonoInitializable, IObjectPool<TObject> where TObject : MonoBehaviour
     {
-        [SerializeField] protected int defaultSize;
+        [SerializeField] protected int startSize;
 
         [SerializeField] protected TObject prefab;
         
@@ -13,45 +14,50 @@ namespace App.Scripts.Libs.Patterns.ObjectPool
 
         private readonly List<TObject> _usingObjects = new();
         
-        private void Start()
+        public override void Init()
         {
-            for (int i = 0; i < defaultSize; i++) Create();
+            for (int i = 0; i < startSize; i++)
+            {
+                Create();
+            }
         }
-        
-        public virtual TObject Create()
+
+        protected virtual TObject Create()
         {
-            var newBall = Instantiate(prefab, transform);
-            ReturnObject(newBall);
+            var newObject = Instantiate(prefab, transform);
             
-            return newBall;
+            _usingObjects.Add(newObject);
+            ReturnObject(newObject);
+
+            return newObject;
         }
 
         public virtual TObject Get()
         {
-            if (!_pool.TryPeek(out TObject newBall)) newBall = Create();
+            if (!_pool.TryPeek(out _)) Create();
             
-            TakeObject(newBall);
-
-            return newBall;
+            return TakeObject();
         }
 
         public virtual void ReturnObject(TObject pooledObject)
         {
             pooledObject.gameObject.SetActive(false);
-            
+
             _usingObjects.Remove(pooledObject);
             _pool.Push(pooledObject);
         }
 
-        public virtual void TakeObject(TObject pooledObject)
+        protected virtual TObject TakeObject()
         {
+            var pooledObject = _pool.Pop();
+            _usingObjects.Add(pooledObject);
+            
             pooledObject.gameObject.SetActive(true);
 
-            _pool.Pop();
-            _usingObjects.Add(pooledObject);
+            return pooledObject;
         }
 
-        public virtual void DestroyObject(TObject pooledObject)
+        protected virtual void DestroyObject(TObject pooledObject)
         {
             Destroy(pooledObject.gameObject);
         }
