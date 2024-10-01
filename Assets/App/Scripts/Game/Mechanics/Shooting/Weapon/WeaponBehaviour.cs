@@ -8,9 +8,11 @@ namespace App.Scripts.Game.Mechanics.Shooting.Weapon
         
         public void SetPivot(Transform pivot)
         {
-            transform.SetParent(pivot);
-            transform.localPosition = Vector3.zero;
-            transform.rotation = pivot.rotation;
+            var weaponTransform = transform;
+            
+            weaponTransform.SetParent(pivot);
+            weaponTransform.localPosition = Vector3.zero;
+            weaponTransform.rotation = pivot.rotation;
         }
     }
 }

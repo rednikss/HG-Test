@@ -9,7 +9,5 @@ namespace App.Scripts.Game.Mechanics.Shooting.Weapon.Gun.GunshotController.Confi
         public ConfigBullet BulletConfig;
         
         public float AngleRange;
-
-        public int BulletCount;
     }
 }

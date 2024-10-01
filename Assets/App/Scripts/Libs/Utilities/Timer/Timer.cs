@@ -1,34 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
+using App.Scripts.Libs.Patterns.StateMachine.State;
 
 namespace App.Scripts.Libs.Utilities.Timer
 {
-    public class Timer : MonoBehaviour
+    public class Timer : ITickable
     {
         private float _currentTime;
 
+        private readonly List<ITickable> _tickables = new();
+        
         private readonly List<TimerDelayedEvent> _events = new();
         
-        private void Update()
+        public void Tick(float deltaTime)
         {
-            _currentTime += Time.deltaTime;
+            _currentTime += deltaTime;
 
+            for (int i = 0; i < _tickables.Count; i++)
+            {
+                _tickables[i].Tick(deltaTime);
+            }
+            
             for (var i = 0; i < _events.Count; i++)
             {
-                var delayedEvent = _events[i];
-                CheckDelayedEvent(delayedEvent);
+                CheckDelayedEvent(_events[i]);
             }
         }
 
-        public void AddDelayedEvent(float delay, Action delayedEvent)
+        public void AddTickable(ITickable tickable)
         {
-            _events.Add(new (_currentTime + delay, delayedEvent));
+            _tickables.Add(tickable);
+        }
+
+        public void RemoveTickable(ITickable tickable)
+        {
+            _tickables.Remove(tickable);
         }
         
-        public void SetActive(bool newState)
+        public void AddDelayedEvent(float delay, Action delayedEvent)
         {
-            enabled = newState;
+            _events.Add(new TimerDelayedEvent(_currentTime + delay, delayedEvent));
         }
 
         public float GetCurrentTime()

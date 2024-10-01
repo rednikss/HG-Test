@@ -136,7 +136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 18481415555818306, guid: 361a2ac74d2fb52428217793294684b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 18481415555818306, guid: 361a2ac74d2fb52428217793294684b8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -353,7 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerConfig: {fileID: 11400000, guid: 970f4587aac34f04b9354669168e3fa4, type: 2}
-  _playerWeaponsConfig: {fileID: 11400000, guid: fb4dbc439e5fcf74795587f88ff872c6, type: 2}
+  _playerWeaponsConfig: {fileID: 11400000, guid: 064e83da314a3fb4290c9d7dc65594e9, type: 2}
   _playerEntity: {fileID: 1140059639}
 --- !u!1 &504203928
 GameObject:
@@ -610,6 +610,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977e31fc86424b6cb09af34cabd8d1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1145288234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1145288235}
+  - component: {fileID: 1145288236}
+  m_Layer: 0
+  m_Name: State Machine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1145288235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145288234}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1466987442}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1145288236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145288234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea56e88c50c4f91bafda77538848b49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1340167805
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,12 +699,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyConfig: {fileID: 11400000, guid: 4ae55b940ed253a41a8e4f906cb9bd6e, type: 2}
-  _enemyWeaponsConfig: {fileID: 11400000, guid: fb4dbc439e5fcf74795587f88ff872c6, type: 2}
+  _enemyWeaponsConfig: {fileID: 11400000, guid: 3e104ad767a0e744ab27446b81894f9b, type: 2}
   _targetTransform: {fileID: 1854370850577973860}
   _enemyEntities:
   - {fileID: 3848906572104027517}
   - {fileID: 2087940864}
   - {fileID: 1398010967}
+  _attackPeriod: 2
 --- !u!1 &1350791931
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,6 +737,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 901482240}
+  - {fileID: 2072588247}
   - {fileID: 502860006}
   - {fileID: 1340167806}
   m_Father: {fileID: 1466987442}
@@ -710,6 +756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monoInstallers:
   - {fileID: 901482241}
+  - {fileID: 2072588248}
   - {fileID: 502860007}
   - {fileID: 1340167807}
 --- !u!1001 &1398010962
@@ -726,7 +773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 18481415555818306, guid: 361a2ac74d2fb52428217793294684b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 18481415555818306, guid: 361a2ac74d2fb52428217793294684b8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -836,6 +883,8 @@ Transform:
   m_Children:
   - {fileID: 1350791932}
   - {fileID: 2019118815}
+  - {fileID: 1145288235}
+  - {fileID: 1934459373}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1466987443
@@ -853,6 +902,7 @@ MonoBehaviour:
   monoInitializables:
   - {fileID: 1350791933}
   - {fileID: 2019118816}
+  - {fileID: 1934459372}
 --- !u!1 &1498801861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,6 +1113,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910196917}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1934459371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1934459373}
+  - component: {fileID: 1934459372}
+  m_Layer: 0
+  m_Name: Starter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1934459372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934459371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ca8e3891b6649ab9c8f9ba4155e1c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateMachine: {fileID: 1145288236}
+--- !u!4 &1934459373
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934459371}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1466987442}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2019118814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,6 +1241,56 @@ Transform:
   - {fileID: 504203929}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2072588246
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2072588247}
+  - component: {fileID: 2072588248}
+  m_Layer: 0
+  m_Name: State Machine Installer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2072588247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072588246}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1350791932}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2072588248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072588246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a29a8cc2a3749fba43ab7859ae2efef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateMachine: {fileID: 1145288236}
+  _entities:
+  - {fileID: 1140059639}
+  - {fileID: 3848906572104027517}
+  - {fileID: 2087940864}
+  - {fileID: 1398010967}
 --- !u!1 &2075904702
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,7 +1421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1965975727274134673, guid: be3feabee491d0b4fb3bbb12877188dd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1965975727274134673, guid: be3feabee491d0b4fb3bbb12877188dd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1339,7 +1484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 18481415555818306, guid: 361a2ac74d2fb52428217793294684b8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 18481415555818306, guid: 361a2ac74d2fb52428217793294684b8, type: 3}
       propertyPath: m_LocalPosition.z

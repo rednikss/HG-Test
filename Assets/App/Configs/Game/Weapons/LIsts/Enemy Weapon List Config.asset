@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c041e4e4d124542883467177f368a67, type: 3}
+  m_Name: Enemy Weapon List Config
+  m_EditorClassIdentifier: 
+  List:
+  - {fileID: 11400000, guid: fb4dbc439e5fcf74795587f88ff872c6, type: 2}
+  - {fileID: 11400000, guid: 08a55df185c00f0448279ea2ae56e389, type: 2}
+  - {fileID: 11400000, guid: 78a1ef1d66966654ca767b0ac783c334, type: 2}

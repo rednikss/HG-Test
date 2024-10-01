@@ -1,15 +1,18 @@
 ﻿using System.Collections.Generic;
-using App.Scripts.Game.Entity.Attacking;
 using App.Scripts.Game.Entity.Base.Config;
-using App.Scripts.Game.Entity.Health;
-using App.Scripts.Game.Entity.InputProvider;
-using App.Scripts.Game.Entity.Movement;
+using App.Scripts.Game.Entity.InputProvider.Attack;
+using App.Scripts.Game.Entity.InputProvider.Move;
+using App.Scripts.Game.Entity.Modules.Attacking;
+using App.Scripts.Game.Entity.Modules.Health;
+using App.Scripts.Game.Entity.Modules.Movement;
 using App.Scripts.Game.Mechanics.Shooting.Weapon;
+using App.Scripts.Game.Mechanics.Shooting.WeaponChanger;
+using App.Scripts.Libs.Patterns.StateMachine.State;
 using UnityEngine;
 
 namespace App.Scripts.Game.Entity.Base
 {
-    public class EntityBase : MonoBehaviour, IDamageable
+    public class EntityBase : MonoBehaviour, ITickable, IDamageable, IArmed
     {
         [SerializeField] private CharacterController _characterController;
         
@@ -19,40 +22,53 @@ namespace App.Scripts.Game.Entity.Base
         
         private readonly List<ITickable> _tickables = new();
 
-        private HealthController _healthController;
+        private DamageableEntityModule _damageableEntityModule;
 
-        public void Construct(ConfigEntity entityConfig, IInputProvider inputProvider, WeaponBehaviour weapon)
+        private AttackingEntityModule _attackingEntityModule;
+
+        public void Construct(ConfigEntity entityConfig, 
+            IMoveInputProvider moveInputProvider, 
+            IAttackInputProvider attackInputProvider, 
+            WeaponChanger weaponChanger)
         {
-            _healthController = new HealthController(entityConfig.Health, this);
+            _damageableEntityModule = new DamageableEntityModule(entityConfig.Health, this);
             
-            var movement = new MovingEntity(
+            var movement = new MovingEntityModule(
                 entityConfig.Movement, 
-                inputProvider,
+                moveInputProvider,
                 _characterController, 
                 _entityRotatableTransform);
 
-            var attack = new AttackingEntity(_weaponPivotTransform, inputProvider, weapon);
+            _attackingEntityModule = new AttackingEntityModule(_weaponPivotTransform, attackInputProvider);
             
+            weaponChanger.Init();
+            _tickables.Add(weaponChanger);
             _tickables.Add(movement);
-            _tickables.Add(attack);
+            _tickables.Add(_attackingEntityModule);
         }
 
-        private void Update()
+        public void Tick(float deltaTime)
         {
             foreach (var tickable in _tickables)
             {
-                tickable.Tick(Time.deltaTime);
+                tickable.Tick(deltaTime);
             }
         }
 
         public void TakeDamage(float damage)
         {
-            _healthController.RemoveHealth(damage);
+            _damageableEntityModule.RemoveHealth(damage);
         }
 
         public void Kill()
         {
-            Destroy(gameObject);
+            _tickables.Clear();
+            gameObject.SetActive(false);
+        }
+
+        public void SetWeapon(WeaponBehaviour weaponBehaviour)
+        {
+            _attackingEntityModule.SetWeapon(weaponBehaviour);
         }
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player Entity Config
   m_EditorClassIdentifier: 
   Health:
-    StartHealth: 3
+    StartHealth: 5
   Movement:
     Speed: 10
     Sensitivity: 7

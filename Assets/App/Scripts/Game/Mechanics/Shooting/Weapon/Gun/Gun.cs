@@ -7,10 +7,10 @@ namespace App.Scripts.Game.Mechanics.Shooting.Weapon.Gun
 {
     public class Gun : WeaponBehaviour
     {
-        [SerializeField] private ConfigGun gunConfig;
-
         [SerializeField] private Transform[] _spawnBulletPoints;
 
+        private ConfigGun _gunConfig;
+        
         private IGunshotController _gunshotController;
 
         private Timer _timer;
@@ -19,20 +19,23 @@ namespace App.Scripts.Game.Mechanics.Shooting.Weapon.Gun
 
         private float _lastShotTime;
         
-        public void Construct(IGunshotController gunshotController, Timer timer)
+        public void Construct(ConfigGun gunConfig, IGunshotController gunshotController, Timer timer)
         {
+            _gunConfig = gunConfig;
             _gunshotController = gunshotController;
             _timer = timer;
-            _currentRounds = gunConfig.Rounds;
+            _currentRounds = _gunConfig.Rounds;
         }
         
         public override void Attack()
         {
             if (!IsPossibleToShoot()) return;
 
+            _lastShotTime = _timer.GetCurrentTime();
+            
             if (--_currentRounds == 0)
             {
-                _timer.AddDelayedEvent(gunConfig.ReloadTime, ResetRounds);
+                _timer.AddDelayedEvent(_gunConfig.ReloadTime, ResetRounds);
             }
             
             _gunshotController.CreateGunshot(_spawnBulletPoints);
@@ -42,13 +45,13 @@ namespace App.Scripts.Game.Mechanics.Shooting.Weapon.Gun
         {
             var shotDelta = _timer.GetCurrentTime() - _lastShotTime;
             
-            return _currentRounds > 0 && shotDelta >= 1 / gunConfig.Rapidity;
+            return _currentRounds > 0 && shotDelta >= (1f / _gunConfig.Rapidity);
         }
 
         private void ResetRounds()
         {
-            _currentRounds = gunConfig.Rounds;
-            _lastShotTime = -gunConfig.Rapidity;
+            _currentRounds = _gunConfig.Rounds;
+            _lastShotTime = -_gunConfig.Rapidity;
         }
     }
 }

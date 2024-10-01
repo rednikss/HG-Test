@@ -1,5 +1,5 @@
-﻿using App.Scripts.Game.Entity.Health.Config;
-using App.Scripts.Game.Entity.Movement.Config;
+﻿using App.Scripts.Game.Entity.Modules.Health.Config;
+using App.Scripts.Game.Entity.Modules.Movement.Config;
 using UnityEngine;
 
 namespace App.Scripts.Game.Entity.Base.Config
